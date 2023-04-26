@@ -1,0 +1,17 @@
+                    <?php																			//1.To get question ge info
+					$result_questions = mysqli_query($connect, "SELECT * FROM exam_question, question WHERE exam_question.question_id=question.question_id AND exam_question.exam_id=" . $_POST['exam_id'] . " ");
+                    if (mysqli_num_rows($result_questions) > 0) {
+						while ($row = mysqli_fetch_array($result_questions)) {							//1.To get question ge info
+					?>
+							<p class="item-title"><?php echo $row["question_title"] ?></p>
+							<!--2. Get informations from database after fetch_array the WANTED database column-->
+							<?php
+							$result_answer = mysqli_query($connect, "SELECT * FROM question, question_choice, answer WHERE question.question_id=question_choice.question_id AND question_choice.answer_id=answer.answer_id AND question.question_id=" . $row['question_id'] . " ");
+							while ($row_answer = mysqli_fetch_array($result_answer)) {
+							?>
+								<p class="item-title"><?php echo $row_answer["answer_text"] ?></p>
+					<?php																			//1.To get question ge info
+							}
+						}
+					}
+					?>
